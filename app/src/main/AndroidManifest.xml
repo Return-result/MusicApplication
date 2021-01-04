@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.maxfour.music">
+    package="com.returnresult.music">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,12 +9,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".App"
+        android:name="com.returnresult.music.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_music"
         android:label="@string/app_name"
@@ -24,7 +25,7 @@
         android:theme="@style/Theme.Music.Light"
         tools:ignore="UnusedAttribute">
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="com.returnresult.music.ui.activities.MainActivity"
             android:label="@string/main_activity_name"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -97,38 +98,38 @@
                 <data android:mimeType="vnd.android.cursor.dir/audio" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.AlbumDetailActivity" />
-        <activity android:name=".ui.activities.ArtistDetailActivity" />
-        <activity android:name=".ui.activities.GenreDetailActivity" />
-        <activity android:name=".ui.activities.PlaylistDetailActivity" />
+        <activity android:name="com.returnresult.music.ui.activities.AlbumDetailActivity" />
+        <activity android:name="com.returnresult.music.ui.activities.ArtistDetailActivity" />
+        <activity android:name="com.returnresult.music.ui.activities.GenreDetailActivity" />
+        <activity android:name="com.returnresult.music.ui.activities.PlaylistDetailActivity" />
         <activity
-            android:name=".ui.activities.tageditor.SongTagEditorActivity"
+            android:name="com.returnresult.music.ui.activities.tageditor.SongTagEditorActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
+            android:name="com.returnresult.music.ui.activities.tageditor.AlbumTagEditorActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.SearchActivity" />
+        <activity android:name="com.returnresult.music.ui.activities.SearchActivity" />
         <activity
-            android:name=".ui.activities.SettingsActivity"
+            android:name="com.returnresult.music.ui.activities.SettingsActivity"
             android:label="@string/action_settings" />
         <activity
-            android:name=".ui.activities.AboutActivity"
+            android:name="com.returnresult.music.ui.activities.AboutActivity"
             android:label="@string/action_about"
             android:theme="@style/AboutActivityTheme" />
         <activity
-            android:name=".ui.activities.intro.AppIntroActivity"
+            android:name="com.returnresult.music.ui.activities.intro.AppIntroActivity"
             android:label="@string/intro_label"
             android:theme="@style/Theme.Intro" />
         <activity
-            android:name=".appshortcuts.AppShortcutLauncherActivity"
+            android:name="com.returnresult.music.appshortcuts.AppShortcutLauncherActivity"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
-            android:name=".service.MusicService"
+            android:name="com.returnresult.music.service.MusicService"
             android:enabled="true" />
 
-        <receiver android:name=".service.MediaButtonIntentReceiver">
+        <receiver android:name="com.returnresult.music.service.MediaButtonIntentReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -141,21 +142,21 @@
             android:name="com.lge.support.SPLIT_WINDOW"
             android:value="true" />
         <meta-data
-            android:name="com.maxfour.music.glide.MusicGlideModule"
+            android:name="com.returnresult.music.glide.MusicGlideModule"
             android:value="GlideModule" />
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
 
         <!-- Widgets -->
-        <receiver android:name=".appwidgets.BootReceiver">
+        <receiver android:name="com.returnresult.music.appwidgets.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetBig"
+            android:name="com.returnresult.music.appwidgets.AppWidgetBig"
             android:exported="false"
             android:label="@string/app_widget_big_name">
             <intent-filter>
@@ -167,7 +168,7 @@
                 android:resource="@xml/app_widget_big_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetClassic"
+            android:name="com.returnresult.music.appwidgets.AppWidgetClassic"
             android:exported="false"
             android:label="@string/app_widget_classic_name">
             <intent-filter>
@@ -179,7 +180,7 @@
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetClassicDark"
+            android:name="com.returnresult.music.appwidgets.AppWidgetClassicDark"
             android:exported="false"
             android:label="@string/app_widget_classic_dark_name">
             <intent-filter>
@@ -191,7 +192,7 @@
                 android:resource="@xml/app_widget_classic_dark_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetSmall"
+            android:name="com.returnresult.music.appwidgets.AppWidgetSmall"
             android:exported="false"
             android:label="@string/app_widget_small_name">
             <intent-filter>
@@ -203,7 +204,7 @@
                 android:resource="@xml/app_widget_small_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetSmallDark"
+            android:name="com.returnresult.music.appwidgets.AppWidgetSmallDark"
             android:exported="false"
             android:label="@string/app_widget_small_dark_name">
             <intent-filter>
@@ -215,7 +216,7 @@
                 android:resource="@xml/app_widget_small_dark_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetCard"
+            android:name="com.returnresult.music.appwidgets.AppWidgetCard"
             android:exported="false"
             android:label="@string/app_widget_card_name">
             <intent-filter>
@@ -227,7 +228,7 @@
                 android:resource="@xml/app_widget_card_info" />
         </receiver>
         <receiver
-            android:name=".appwidgets.AppWidgetCardDark"
+            android:name="com.returnresult.music.appwidgets.AppWidgetCardDark"
             android:exported="false"
             android:label="@string/app_widget_card_dark_name">
             <intent-filter>

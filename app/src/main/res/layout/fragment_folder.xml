@@ -33,7 +33,7 @@
 
         </FrameLayout>
 
-        <com.maxfour.music.views.BreadCrumbLayout
+        <com.returnresult.music.views.BreadCrumbLayout
             android:id="@+id/bread_crumbs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tab_height"
