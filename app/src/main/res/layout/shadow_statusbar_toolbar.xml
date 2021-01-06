@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.returnresult.music.views.StatusBarView
+        <com.return_result.music.views.StatusBarView
             android:layout_width="match_parent"
             android:layout_height="@dimen/status_bar_padding" />
 

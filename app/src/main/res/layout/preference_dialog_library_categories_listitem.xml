@@ -40,7 +40,7 @@
         android:textSize="@dimen/md_listitem_textsize"
         tools:text="Item" />
 
-    <com.returnresult.music.views.IconImageView
+    <com.return_result.music.views.IconImageView
         android:id="@+id/drag_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
