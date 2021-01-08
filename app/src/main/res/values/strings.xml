@@ -59,7 +59,7 @@
         <item quantity="other">albums</item>
     </plurals>
     <string name="always">Always</string>
-    <string name="app_name">Play Pause Music</string>
+    <string name="app_name">PausePlay Music</string>
     <string name="app_shortcut_last_added_short">Last added</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_songs_short">Top songs</string>
@@ -73,7 +73,7 @@
     <string name="artist">Artist</string>
     <string name="artists">Artists</string>
     <string name="audio_focus_denied">Audio focus denied</string>
-    <string name="author">Author</string>
+    <string name="author">Author\'s Email</string>
     <string name="biography">Biography</string>
     <string name="biography_unavailable">Couldn’t find a biography entry for this artist</string>
     <string name="black_theme_name">Black (AMOLED)</string>
@@ -150,7 +150,7 @@
     <string name="light_theme_name">Light</string>
     <string name="listing_files">Listing files</string>
     <string name="lyrics">Lyrics</string>
-    <string name="main_activity_name">Play Pause Music</string>
+    <string name="main_activity_name">PausePlay Music</string>
     <string name="md_back_label">Back</string>
     <string name="md_cancel_label">Cancel</string>
     <string name="md_choose_label">Choose</string>

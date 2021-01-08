@@ -179,7 +179,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             Song song = MusicPlayerRemote.getCurrentSong();
             if (navigationDrawerHeader == null) {
                 navigationDrawerHeader = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
-                //noinspection ConstantConditions
                 navigationDrawerHeader.setOnClickListener(v -> {
                     drawerLayout.closeDrawers();
                     if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {

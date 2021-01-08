@@ -73,8 +73,6 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingEnd="16dp"
-                        android:paddingLeft="0dp"
-                        android:paddingRight="16dp"
                         android:paddingStart="0dp">
 
                         <ImageView
@@ -183,6 +181,7 @@
             android:layout_height="@dimen/detail_header_height"
             android:elevation="@dimen/toolbar_elevation"
             tools:ignore="UnusedAttribute" />
+
     </FrameLayout>
 
 </LinearLayout>

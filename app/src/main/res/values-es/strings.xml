@@ -61,7 +61,7 @@
         <item quantity="one">álbum</item>
     </plurals>
     <string name="always">Siempre</string>
-    <string name="app_name">Music</string>
+    <string name="app_name">PausePlay Music</string>
     <string name="app_shortcut_last_added_short">Últimos añadidos</string>
     <string name="app_shortcut_shuffle_all_short">Barajar</string>
     <string name="app_shortcut_top_songs_short">Mejores canciones</string>

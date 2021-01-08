@@ -20,9 +20,9 @@ public class AppIntroActivity extends IntroActivity {
 
         addSlide(new SimpleSlide.Builder()
                 .title(R.string.main_activity_name)
-                .description(R.string.welcome_to_music_app)
+                .description("")
                 .image(R.drawable.icon_web)
-                .background(R.color.md_grey_300)
+                .background(R.color.md_white_1000)
                 .backgroundDark(R.color.md_grey_700)
                 .layout(R.layout.fragment_simple_slide_large_image)
                 .build());
