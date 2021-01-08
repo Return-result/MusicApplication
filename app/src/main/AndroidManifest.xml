@@ -27,7 +27,7 @@
         android:theme="@style/Theme.Music.Light"
         tools:ignore="AllowBackup,UnusedAttribute">
         <activity
-            android:name="com.return_result.music.ui.activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:label="@string/main_activity_name"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -100,38 +100,38 @@
                 <data android:mimeType="vnd.android.cursor.dir/audio" />
             </intent-filter>
         </activity>
-        <activity android:name="com.return_result.music.ui.activities.AlbumDetailActivity" />
-        <activity android:name="com.return_result.music.ui.activities.ArtistDetailActivity" />
-        <activity android:name="com.return_result.music.ui.activities.GenreDetailActivity" />
-        <activity android:name="com.return_result.music.ui.activities.PlaylistDetailActivity" />
+        <activity android:name=".ui.activities.AlbumDetailActivity" />
+        <activity android:name=".ui.activities.ArtistDetailActivity" />
+        <activity android:name=".ui.activities.GenreDetailActivity" />
+        <activity android:name=".ui.activities.PlaylistDetailActivity" />
         <activity
-            android:name="com.return_result.music.ui.activities.tageditor.SongTagEditorActivity"
+            android:name=".ui.activities.tageditor.SongTagEditorActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.return_result.music.ui.activities.tageditor.AlbumTagEditorActivity"
+            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name="com.return_result.music.ui.activities.SearchActivity" />
+        <activity android:name=".ui.activities.SearchActivity" />
         <activity
-            android:name="com.return_result.music.ui.activities.SettingsActivity"
+            android:name=".ui.activities.SettingsActivity"
             android:label="@string/action_settings" />
         <activity
-            android:name="com.return_result.music.ui.activities.AboutActivity"
+            android:name=".ui.activities.AboutActivity"
             android:label="@string/action_about"
             android:theme="@style/AboutActivityTheme" />
         <activity
-            android:name="com.return_result.music.ui.activities.intro.AppIntroActivity"
+            android:name=".ui.activities.intro.AppIntroActivity"
             android:label="@string/intro_label"
             android:theme="@style/Theme.Intro" />
         <activity
-            android:name="com.return_result.music.appshortcuts.AppShortcutLauncherActivity"
+            android:name=".appshortcuts.AppShortcutLauncherActivity"
             android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
-            android:name="com.return_result.music.service.MusicService"
+            android:name=".service.MusicService"
             android:enabled="true" />
 
-        <receiver android:name="com.return_result.music.service.MediaButtonIntentReceiver">
+        <receiver android:name=".service.MediaButtonIntentReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -158,7 +158,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetBig"
+            android:name=".appwidgets.AppWidgetBig"
             android:exported="false"
             android:label="@string/app_widget_big_name">
             <intent-filter>
@@ -170,7 +170,7 @@
                 android:resource="@xml/app_widget_big_info" />
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetClassic"
+            android:name=".appwidgets.AppWidgetClassic"
             android:exported="false"
             android:label="@string/app_widget_classic_name">
             <intent-filter>
@@ -182,7 +182,7 @@
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetClassicDark"
+            android:name=".appwidgets.AppWidgetClassicDark"
             android:exported="false"
             android:label="@string/app_widget_classic_dark_name">
             <intent-filter>
@@ -194,7 +194,7 @@
                 android:resource="@xml/app_widget_classic_dark_info" />
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetSmall"
+            android:name=".appwidgets.AppWidgetSmall"
             android:exported="false"
             android:label="@string/app_widget_small_name">
             <intent-filter>
@@ -206,7 +206,7 @@
                 android:resource="@xml/app_widget_small_info" />
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetSmallDark"
+            android:name=".appwidgets.AppWidgetSmallDark"
             android:exported="false"
             android:label="@string/app_widget_small_dark_name">
             <intent-filter>
@@ -218,7 +218,7 @@
                 android:resource="@xml/app_widget_small_dark_info" />
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetCard"
+            android:name=".appwidgets.AppWidgetCard"
             android:exported="false"
             android:label="@string/app_widget_card_name">
             <intent-filter>
@@ -230,7 +230,7 @@
                 android:resource="@xml/app_widget_card_info" />
         </receiver>
         <receiver
-            android:name="com.return_result.music.appwidgets.AppWidgetCardDark"
+            android:name=".appwidgets.AppWidgetCardDark"
             android:exported="false"
             android:label="@string/app_widget_card_dark_name">
             <intent-filter>

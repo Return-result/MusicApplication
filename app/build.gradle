@@ -1,4 +1,4 @@
-import javax.annotation.Nullable
+
 
 apply plugin: 'com.android.application'
 
@@ -11,7 +11,7 @@ def getProperties(String fileName) {
     return properties
 }
 
-static def getProperty(@Nullable Properties properties, String name) {
+static def getProperty(Properties properties, String name) {
     return properties.getProperty(name) ?: "$name missing"
 }
 
@@ -85,6 +85,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.1'
 
+
     implementation 'com.afollestad:material-cab:0.1.12'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
@@ -101,6 +102,8 @@ dependencies {
     }
 
     implementation 'com.jakewharton:butterknife:10.2.1'
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'org.jetbrains:annotations:15.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 
     implementation 'com.google.code.gson:gson:2.8.6'
