@@ -18,6 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.return_result.music.R;
 import com.return_result.music.ui.activities.base.AbsBaseActivity;
@@ -56,6 +61,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 //    @BindView(R.id.yandex_money)
 //    LinearLayout yandexMoney;
 
+    private AdView adViewAbout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,17 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         setTaskDescriptionColorAuto();
 
         setUpViews();
+
+        //LOAD BANNER AD
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        adViewAbout = findViewById(R.id.adViewAbout);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adViewAbout.loadAd(adRequest);
     }
 
     private void setUpViews() {

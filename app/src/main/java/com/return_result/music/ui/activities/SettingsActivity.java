@@ -17,6 +17,11 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.TwoStatePreference;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
@@ -43,6 +48,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    private AdView mAdViewSettings;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,17 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
+
+        //LOAD BANNER AD
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdViewSettings = findViewById(R.id.adViewSettings);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdViewSettings.loadAd(adRequest);
 
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         toolbar.setTitleTextAppearance(this, R.style.ProductSansTextAppearance);

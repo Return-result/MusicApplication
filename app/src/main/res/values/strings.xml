@@ -60,6 +60,7 @@
     </plurals>
     <string name="always">Always</string>
     <string name="app_name">PausePlay Music</string>
+<!--    <string name="app_version">version1.00</string>-->
     <string name="app_shortcut_last_added_short">Last added</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_songs_short">Top songs</string>

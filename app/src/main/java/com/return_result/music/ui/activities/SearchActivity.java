@@ -16,6 +16,11 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.return_result.music.R;
 import com.return_result.music.adapter.SearchAdapter;
@@ -38,6 +43,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
 
     public static final String QUERY = "query";
     private static final int LOADER_ID = LoaderIds.SEARCH_ACTIVITY;
+    private AdView mAdView;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -57,6 +63,17 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         setContentView(R.layout.activity_search);
         setDrawUnderStatusbar();
         ButterKnife.bind(this);
+
+        //LOAD BANNER AD
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
