@@ -19,6 +19,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
@@ -56,6 +60,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     private static final int LIBRARY = 0;
     private static final int FOLDERS = 1;
 
+    private InterstitialAd mInterstitialAd;
+    private InterstitialAd interstitialAd;
+
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
@@ -76,6 +83,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         ButterKnife.bind(this);
 
         setUpDrawerLayout();
+
+        MobileAds.initialize(this);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         if (savedInstanceState == null) {
             setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
@@ -145,25 +158,65 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             drawerLayout.closeDrawers();
             switch (menuItem.getItemId()) {
                 case R.id.nav_library:
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
+                            }
+                        });
+                    } else {
                     new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
+                    }
                     break;
                 case R.id.nav_folders:
-                    new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
+                            }
+                        });
+                    } else {
+                        new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
+                    }
                     break;
                 case R.id.action_scan:
-                    new Handler().postDelayed(() -> {
-                        ScanMediaFolderChooserDialog dialog = ScanMediaFolderChooserDialog.create();
-                        dialog.show(getSupportFragmentManager(), "SCAN_MEDIA_FOLDER_CHOOSER");
-                    }, 200);
+                        new Handler().postDelayed(() -> {
+                            ScanMediaFolderChooserDialog dialog = ScanMediaFolderChooserDialog.create();
+                            dialog.show(getSupportFragmentManager(), "SCAN_MEDIA_FOLDER_CHOOSER");
+                        }, 200);
                     break;
                 case R.id.nav_equalizer:
-                    NavigationUtil.openEqualizer(this);
+                        NavigationUtil.openEqualizer(this);
                     break;
                 case R.id.nav_settings:
-                    new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+                            }
+                        });
+                    } else {
+                        new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+                    }
                     break;
                 case R.id.nav_about:
-                    new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+                            }
+                        });
+                    } else {
+                        new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+                    }
                     break;
             }
             return true;
