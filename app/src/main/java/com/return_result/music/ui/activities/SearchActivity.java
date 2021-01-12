@@ -44,6 +44,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     public static final String QUERY = "query";
     private static final int LOADER_ID = LoaderIds.SEARCH_ACTIVITY;
     private AdView mAdView;
+    private AdView mAdView2;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -72,8 +73,12 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
 
         mAdView = findViewById(R.id.adView);
+        mAdView2 = findViewById(R.id.mAdView);
+
         AdRequest adRequest = new AdRequest.Builder().build();
+
         mAdView.loadAd(adRequest);
+        mAdView2.loadAd(adRequest);
 
         setStatusbarColorAuto();
         setNavigationbarColorAuto();

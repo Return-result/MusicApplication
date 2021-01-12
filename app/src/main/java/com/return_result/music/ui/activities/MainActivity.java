@@ -61,7 +61,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     private static final int FOLDERS = 1;
 
     private InterstitialAd mInterstitialAd;
-    private InterstitialAd interstitialAd;
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;

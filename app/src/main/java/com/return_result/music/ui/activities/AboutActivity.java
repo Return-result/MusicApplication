@@ -46,7 +46,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     TextView appVersion;
     @BindView(R.id.intro)
     LinearLayout intro;
-//    @BindView(R.id.licenses)
+    //    @BindView(R.id.licenses)
 //    LinearLayout licenses;
 //    @BindView(R.id.fork_on_github)
 //    LinearLayout forkOnGitHub;
@@ -62,6 +62,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 //    LinearLayout yandexMoney;
 
     private AdView adViewAbout;
+    private AdView adView;
+    private AdView adAbout;
 
 
     @Override
@@ -85,8 +87,14 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         });
 
         adViewAbout = findViewById(R.id.adViewAbout);
+        adView = findViewById(R.id.adView);
+        adAbout = findViewById(R.id.adAbout);
+
         AdRequest adRequest = new AdRequest.Builder().build();
+
         adViewAbout.loadAd(adRequest);
+        adAbout.loadAd(adRequest);
+        adView.loadAd(adRequest);
     }
 
     private void setUpViews() {
