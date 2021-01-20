@@ -35,10 +35,10 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        mInterstitialAd = new InterstitialAd(this);
-
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        mInterstitialAd = new InterstitialAd(this);
+//
+//        mInterstitialAd.setAdUnitId("ca-app-pub-6120599717351425/5386874655");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
         permissions = getPermissionsToRequest();
         hadPermissions = hasPermissions();

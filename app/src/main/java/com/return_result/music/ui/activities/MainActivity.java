@@ -60,7 +60,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     private static final int LIBRARY = 0;
     private static final int FOLDERS = 1;
 
-    private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAd, mInterstitialLibrary, mInterstitialAbout, mInterstitialSettings, mInterstitialFolder;
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
@@ -85,9 +85,27 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
         MobileAds.initialize(this);
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId("ca-app-pub-6120599717351425/6975094975");
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialLibrary = new InterstitialAd(this);
+        mInterstitialLibrary.setAdUnitId("ca-app-pub-6120599717351425/6975094975");
+        mInterstitialLibrary.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAbout = new InterstitialAd(this);
+        mInterstitialAbout.setAdUnitId("ca-app-pub-6120599717351425/8942976287");
+        mInterstitialAbout.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialSettings = new InterstitialAd(this);
+        mInterstitialSettings.setAdUnitId("ca-app-pub-6120599717351425/5386874655");
+        mInterstitialSettings.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialFolder = new InterstitialAd(this);
+        mInterstitialFolder.setAdUnitId("ca-app-pub-6120599717351425/2708562818");
+        mInterstitialFolder.loadAd(new AdRequest.Builder().build());
+
+
 
         if (savedInstanceState == null) {
             setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
@@ -157,9 +175,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             drawerLayout.closeDrawers();
             switch (menuItem.getItemId()) {
                 case R.id.nav_library:
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
-                        mInterstitialAd.setAdListener(new AdListener() {
+                    if (mInterstitialLibrary.isLoaded()) {
+                        mInterstitialLibrary.show();
+                        mInterstitialLibrary.setAdListener(new AdListener() {
                             @Override
                             public void onAdClosed() {
                                 new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
@@ -170,9 +188,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                     }
                     break;
                 case R.id.nav_folders:
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
-                        mInterstitialAd.setAdListener(new AdListener() {
+                    if (mInterstitialFolder.isLoaded()) {
+                        mInterstitialFolder.show();
+                        mInterstitialFolder.setAdListener(new AdListener() {
                             @Override
                             public void onAdClosed() {
                                 new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
@@ -192,9 +210,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                         NavigationUtil.openEqualizer(this);
                     break;
                 case R.id.nav_settings:
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
-                        mInterstitialAd.setAdListener(new AdListener() {
+                    if (mInterstitialSettings.isLoaded()) {
+                        mInterstitialSettings.show();
+                        mInterstitialSettings.setAdListener(new AdListener() {
                             @Override
                             public void onAdClosed() {
                                 new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
@@ -205,9 +223,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                     }
                     break;
                 case R.id.nav_about:
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
-                        mInterstitialAd.setAdListener(new AdListener() {
+                    if (mInterstitialAbout.isLoaded()) {
+                        mInterstitialAbout.show();
+                        mInterstitialAbout.setAdListener(new AdListener() {
                             @Override
                             public void onAdClosed() {
                                 new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
