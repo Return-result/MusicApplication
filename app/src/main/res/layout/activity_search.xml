@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/status_bar" />
@@ -36,6 +37,7 @@
             android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-6120599717351425/2959828348">
         </com.google.android.gms.ads.AdView>
@@ -49,6 +51,25 @@
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-6120599717351425/7886234851">
         </com.google.android.gms.ads.AdView>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/banner_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            />-->
+
+        <com.mopub.mobileads.MoPubView
+            android:layout_width='match_parent'
+            android:layout_height='50dp'
+            android:id="@+id/adViewMoPub"
+            app:moPubAdSize='match_view'>
+
+        </com.mopub.mobileads.MoPubView>
+
     </FrameLayout>
 
 

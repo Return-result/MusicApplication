@@ -1,11 +1,13 @@
 package com.return_result.music.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,12 +18,19 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AudienceNetworkAds;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.mopub.common.MoPub;
+import com.mopub.common.SdkConfiguration;
+import com.mopub.common.SdkInitializationListener;
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubView;
 import com.return_result.music.R;
 import com.return_result.music.adapter.SearchAdapter;
 import com.return_result.music.interfaces.LoaderIds;
@@ -39,12 +48,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.mopub.common.logging.MoPubLog.LogLevel.NONE;
+
 public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
 
     public static final String QUERY = "query";
     private static final int LOADER_ID = LoaderIds.SEARCH_ACTIVITY;
     private AdView mAdView;
     private AdView mAdView2;
+    private MoPubView moPubView;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -54,10 +66,12 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     TextView empty;
 
     SearchView searchView;
+    AdView adView2;
 
     private SearchAdapter adapter;
     private String query;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +79,35 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         setDrawUnderStatusbar();
         ButterKnife.bind(this);
 
+        AudienceNetworkAds.initialize(this);
+
         //LOAD BANNER AD
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+
+//         adView2 = new AdView(this, "IMG_16_9_APP_INSTALL#YOUR_PLACEMENT_ID", AdSize.BANNER_HEIGHT_50);
+//
+//        // Find the Ad Container
+//        LinearLayout adContainer = (LinearLayout) findViewById(R.id.banner_container);
+//
+//        // Add the ad view to your activity layout
+//        adContainer.addView(adView2);
+//
+//        // Request an ad
+//        adView2.loadAd();
+
+        final SdkConfiguration.Builder configBuilder = new SdkConfiguration.Builder("9bdd485178164fdeb01319e034b3d436");
+
+        configBuilder.withLogLevel(NONE);
+        MoPub.initializeSdk(this, configBuilder.build(), initSdkListener());
+
+        moPubView = findViewById(R.id.adViewMoPub);
+
+        moPubView.setAdUnitId("9bdd485178164fdeb01319e034b3d436");
+        moPubView.loadAd();
 
         mAdView = findViewById(R.id.adView);
         mAdView2 = findViewById(R.id.mAdView);
@@ -99,6 +136,8 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
             hideSoftKeyboard();
             return false;
         });
+
+
 
         setUpToolBar();
 
@@ -236,5 +275,49 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
             }
             return results;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (adView2 != null) {
+            adView2.destroy();
+        }
+        super.onDestroy();
+    }
+
+
+    private SdkInitializationListener initSdkListener() {
+        return new SdkInitializationListener() {
+            @Override
+            public void onInitializationFinished() {
+                // SDK initialization complete. You may now request ads.
+            }
+        };
+    }
+
+    // Sent when the banner has successfully retrieved an ad.
+    public void onBannerLoaded(MoPubView banner) {
+
+    }
+
+    // Sent when the banner has failed to retrieve an ad. You can use the MoPubErrorCode value to diagnose the cause of failure.
+    public void onBannerFailed(MoPubView banner, MoPubErrorCode errorCode){
+
+    }
+
+    // Sent when the user has tapped on the banner.
+    public void onBannerClicked(MoPubView banner)
+    {
+
+    }
+
+    // Sent when the banner has just taken over the screen.
+    public void onBannerExpanded(MoPubView banner){
+
+    }
+
+    // Sent when an expanded banner has collapsed back to its original size.
+    public void onBannerCollapsed(MoPubView banner){
+
     }
 }
