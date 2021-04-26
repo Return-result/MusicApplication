@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            ads:adSize="SMART_BANNER"
+            ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-6120599717351425/9278018206">
         </com.google.android.gms.ads.AdView>
 
@@ -57,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        ads:adSize="BANNER"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="ca-app-pub-6120599717351425/5933669568">
     </com.google.android.gms.ads.AdView>
 

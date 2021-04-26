@@ -21,8 +21,10 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.navigation.NavigationView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
@@ -89,22 +91,91 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 //        mInterstitialAd.setAdUnitId("ca-app-pub-6120599717351425/6975094975");
 //        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-        mInterstitialLibrary = new InterstitialAd(this);
-        mInterstitialLibrary.setAdUnitId("ca-app-pub-6120599717351425/6975094975");
-        mInterstitialLibrary.loadAd(new AdRequest.Builder().build());
+        AdRequest adRequest = new AdRequest.Builder().build();
 
-        mInterstitialAbout = new InterstitialAd(this);
-        mInterstitialAbout.setAdUnitId("ca-app-pub-6120599717351425/8942976287");
-        mInterstitialAbout.loadAd(new AdRequest.Builder().build());
 
-        mInterstitialSettings = new InterstitialAd(this);
-        mInterstitialSettings.setAdUnitId("ca-app-pub-6120599717351425/5386874655");
-        mInterstitialSettings.loadAd(new AdRequest.Builder().build());
+//        mInterstitialLibrary = new InterstitialAd(this);
+//        mInterstitialLibrary.setAdUnitId("ca-app-pub-6120599717351425/6975094975");
+//        mInterstitialLibrary.loadAd(new AdRequest.Builder().build());
+        InterstitialAd.load(this,"ca-app-pub-6120599717351425/6975094975", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialLibrary = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+            }
 
-        mInterstitialFolder = new InterstitialAd(this);
-        mInterstitialFolder.setAdUnitId("ca-app-pub-6120599717351425/2708562818");
-        mInterstitialFolder.loadAd(new AdRequest.Builder().build());
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialLibrary = null;
+            }
+        });
 
+
+//        mInterstitialSettings = new InterstitialAd(this);
+//        mInterstitialSettings.setAdUnitId("ca-app-pub-6120599717351425/5386874655");
+//        mInterstitialSettings.loadAd(new AdRequest.Builder().build());
+        InterstitialAd.load(this,"ca-app-pub-6120599717351425/5386874655", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialSettings = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialSettings = null;
+            }
+        });
+
+//        mInterstitialAbout = new InterstitialAd(this);
+//        mInterstitialAbout.setAdUnitId("ca-app-pub-6120599717351425/8942976287");
+//        mInterstitialAbout.loadAd(new AdRequest.Builder().build());
+
+        InterstitialAd.load(this,"ca-app-pub-6120599717351425/8942976287", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAbout = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialAbout = null;
+            }
+        });
+
+//        mInterstitialFolder = new InterstitialAd(this);
+//        mInterstitialFolder.setAdUnitId("ca-app-pub-6120599717351425/2708562818");
+//        mInterstitialFolder.loadAd(new AdRequest.Builder().build());
+
+        InterstitialAd.load(this,"ca-app-pub-6120599717351425/2708562818", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialFolder = interstitialAd;
+                Log.i(TAG, "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i(TAG, loadAdError.getMessage());
+                mInterstitialFolder = null;
+            }
+        });
 
 
         if (savedInstanceState == null) {
@@ -175,27 +246,19 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             drawerLayout.closeDrawers();
             switch (menuItem.getItemId()) {
                 case R.id.nav_library:
-                    if (mInterstitialLibrary.isLoaded()) {
-                        mInterstitialLibrary.show();
-                        mInterstitialLibrary.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdClosed() {
-                                new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
-                            }
-                        });
+                    if (mInterstitialLibrary != null) {
+                        mInterstitialLibrary.show(this);
+                        new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
+
                     } else {
                     new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
                     }
                     break;
                 case R.id.nav_folders:
-                    if (mInterstitialFolder.isLoaded()) {
-                        mInterstitialFolder.show();
-                        mInterstitialFolder.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdClosed() {
-                                new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
-                            }
-                        });
+                    if (mInterstitialFolder != null) {
+                        mInterstitialFolder.show(this);
+                        new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
+
                     } else {
                         new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
                     }
@@ -210,27 +273,19 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                         NavigationUtil.openEqualizer(this);
                     break;
                 case R.id.nav_settings:
-                    if (mInterstitialSettings.isLoaded()) {
-                        mInterstitialSettings.show();
-                        mInterstitialSettings.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdClosed() {
-                                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
-                            }
-                        });
+                    if (mInterstitialSettings != null) {
+                        mInterstitialSettings.show(this);
+                        new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+
                     } else {
                         new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
                     }
                     break;
                 case R.id.nav_about:
-                    if (mInterstitialAbout.isLoaded()) {
-                        mInterstitialAbout.show();
-                        mInterstitialAbout.setAdListener(new AdListener() {
-                            @Override
-                            public void onAdClosed() {
-                                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
-                            }
-                        });
+                    if (mInterstitialAbout != null) {
+                        mInterstitialAbout.show(MainActivity.this);
+                        new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+
                     } else {
                         new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
                     }
