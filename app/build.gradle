@@ -27,7 +27,7 @@ android {
 
         applicationId 'com.return_result.music'
         versionCode 15
-        versionName '1.0.2'
+        versionName '1.0.021'
 
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
     }

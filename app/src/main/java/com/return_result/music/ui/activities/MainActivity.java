@@ -19,8 +19,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -62,7 +62,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     private static final int LIBRARY = 0;
     private static final int FOLDERS = 1;
 
-    private InterstitialAd mInterstitialAd, mInterstitialLibrary, mInterstitialAbout, mInterstitialSettings, mInterstitialFolder;
+    private InterstitialAd mInterstitialLibrary, mInterstitialAbout, mInterstitialSettings, mInterstitialFolder;
 
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
@@ -248,17 +248,27 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 case R.id.nav_library:
                     if (mInterstitialLibrary != null) {
                         mInterstitialLibrary.show(this);
-                        new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
-
+                        mInterstitialLibrary.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
+                            }
+                        });
                     } else {
-                    new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
+                        new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
                     }
                     break;
                 case R.id.nav_folders:
                     if (mInterstitialFolder != null) {
                         mInterstitialFolder.show(this);
-                        new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
-
+                        mInterstitialFolder.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
+                            }
+                        });
                     } else {
                         new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
                     }
@@ -275,8 +285,13 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 case R.id.nav_settings:
                     if (mInterstitialSettings != null) {
                         mInterstitialSettings.show(this);
-                        new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
-
+                        mInterstitialSettings.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+                            }
+                        });
                     } else {
                         new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
                     }
@@ -284,8 +299,13 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 case R.id.nav_about:
                     if (mInterstitialAbout != null) {
                         mInterstitialAbout.show(MainActivity.this);
-                        new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
-
+                        mInterstitialAbout.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+                            }
+                        });
                     } else {
                         new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
                     }
@@ -449,5 +469,23 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
     public interface MainActivityFragmentCallbacks {
         boolean handleBackPress();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mInterstitialAbout != null) {
+            mInterstitialAbout.show(MainActivity.this);
+            mInterstitialAbout.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    // Called when fullscreen content is dismissed.
+                    MainActivity.super.onResume();
+                }
+            });
+        } else {
+            super.onResume();
+        }
     }
 }
